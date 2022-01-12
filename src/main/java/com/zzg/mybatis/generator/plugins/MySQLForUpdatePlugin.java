@@ -25,20 +25,20 @@ public class MySQLForUpdatePlugin extends PluginAdapter {
     public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
 
         PrimitiveTypeWrapper booleanWrapper = FullyQualifiedJavaType.getBooleanPrimitiveInstance().getPrimitiveTypeWrapper();
-        Field forUpdate = new Field();
+        Field forUpdate = new Field("forUpdate", booleanWrapper);
         forUpdate.setName("forUpdate");
         forUpdate.setVisibility(JavaVisibility.PRIVATE);
         forUpdate.setType(booleanWrapper);
         topLevelClass.addField(forUpdate);
 
-        Method setForUpdate = new Method();
+        Method setForUpdate = new Method("setForUpdate");
         setForUpdate.setVisibility(JavaVisibility.PUBLIC);
         setForUpdate.setName("setForUpdate");
         setForUpdate.addParameter(new Parameter(booleanWrapper, "forUpdate"));
         setForUpdate.addBodyLine("this.forUpdate = forUpdate;");
         topLevelClass.addMethod(setForUpdate);
 
-        Method getForUpdate = new Method();
+        Method getForUpdate = new Method("setForUpdate");
         getForUpdate.setVisibility(JavaVisibility.PUBLIC);
         getForUpdate.setReturnType(booleanWrapper);
         getForUpdate.setName("getForUpdate");

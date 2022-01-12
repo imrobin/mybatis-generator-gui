@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import java.sql.*;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -28,11 +27,11 @@ public class DbUtil {
     private static final Logger _LOG = LoggerFactory.getLogger(DbUtil.class);
     private static final int DB_CONNECTION_TIMEOUTS_SECONDS = 1;
 
-    private static Map<DbType, Driver> drivers = new HashMap<>();
+    private static Map<DbType, Driver> drivers = new HashMap<DbType, Driver>();
 
 	private static ExecutorService executorService = Executors.newSingleThreadExecutor();
 	private static volatile boolean portForwaring = false;
-	private static Map<Integer, Session> portForwardingSession = new ConcurrentHashMap<>();
+	private static Map<Integer, Session> portForwardingSession = new ConcurrentHashMap<Integer, Session>();
 
     public static Session getSSHSession(DatabaseConfig databaseConfig) {
 		if (StringUtils.isBlank(databaseConfig.getSshHost())
@@ -144,7 +143,7 @@ public class DbUtil {
 		Session sshSession = getSSHSession(config);
 		engagePortForwarding(sshSession, config);
 		try (Connection connection = getConnection(config)) {
-			List<String> tables = new ArrayList<>();
+			List<String> tables = new ArrayList<String>();
 			DatabaseMetaData md = connection.getMetaData();
 			ResultSet rs;
 			if (DbType.valueOf(config.getDbType()) == DbType.SQL_Server) {

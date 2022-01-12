@@ -1,7 +1,5 @@
 package com.zzg.mybatis.generator.bridge;
 
-import com.jcraft.jsch.Session;
-import com.zzg.mybatis.generator.controller.PictureProcessStateController;
 import com.zzg.mybatis.generator.model.DatabaseConfig;
 import com.zzg.mybatis.generator.model.DbType;
 import com.zzg.mybatis.generator.model.GeneratorConfig;
@@ -250,7 +248,13 @@ public class MybatisGeneratorBridge {
                 pluginConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.CommonDAOInterfacePlugin");
                 context.addPluginConfiguration(pluginConfiguration);
             }
+        } else {
+            PluginConfiguration pluginConfiguration = new PluginConfiguration();
+            pluginConfiguration.addProperty("type", "com.zzg.mybatis.generator.plugins.CustomBatchPlugin");
+            pluginConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.CustomBatchPlugin");
+            context.addPluginConfiguration(pluginConfiguration);
         }
+
 
         context.setTargetRuntime("MyBatis3");
 
